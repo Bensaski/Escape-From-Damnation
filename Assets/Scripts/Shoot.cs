@@ -7,6 +7,8 @@ public class Shoot : MonoBehaviour
     public GameObject projectile;
     public GameObject player;
     public float Velocity = 1000f;
+    GameObject Enemy;
+    
     void Start()
     {
 
@@ -37,4 +39,6 @@ public class Shoot : MonoBehaviour
 
         }
     }
+
+  
 }

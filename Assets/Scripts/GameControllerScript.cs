@@ -13,6 +13,7 @@ public class GameControllerScript : MonoBehaviour
 	public Text positionText;
 	public Text velocityText;
 	public Text lowestDistanceText;
+	public Text healthText;
 
 	float positionX;
 	float positionY;
@@ -101,6 +102,11 @@ public class GameControllerScript : MonoBehaviour
 
 
 	}
+	public void setHealthText()
+    {
+		healthText.text = "Health : " + refScript.health;
+    }
+	
 
 	public void setLowestDistanceText()
     {

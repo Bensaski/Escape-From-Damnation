@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour {
 
 	public GameControllerScript refScript2;
 	public Camera mainCamera;
+	public int health = 10;
+	public GameObject rot;
 
 
 	
@@ -62,16 +64,37 @@ public class PlayerController : MonoBehaviour {
     void FixedUpdate(){
 		float horAxis = Input.GetAxis("Horizontal");
 		float verAxis = Input.GetAxis("Vertical");
-		Vector3 movement = new Vector3(horAxis,0.0f,verAxis);
-		
-		GetComponent<Rigidbody>().AddForce(movement * speed * Time.deltaTime);
+
+		if (Input.GetKey("w"))
+		{
+			transform.Translate(Vector3.forward * Time.deltaTime * speed, Space.World);
+		}
+		if (Input.GetKey("s"))
+		{
+			transform.Translate(-Vector3.forward * Time.deltaTime * speed, Space.World);
+		}
+		if (Input.GetKey("d"))
+		{
+			transform.Translate(Vector3.right * Time.deltaTime * speed, Space.World);
+		}
+		if (Input.GetKey("a"))
+		{
+			transform.Translate(-Vector3.right * Time.deltaTime * speed, Space.World);
+		}
+
+		//Vector3 movement = new Vector3(horAxis,0.0f,verAxis);
+		//transform.position += transform.position + movement * speed * Time.deltaTime;
 
 
-			
-			refScript2.setPositionText();
+		//GetComponent<Rigidbody>().AddForce(movement * speed * Time.deltaTime);
+
+
+
+		refScript2.setPositionText();
 			refScript2.setVelocity();
 			//refScript2.GetDistance();
 			refScript2.setLowestDistanceText();
+			refScript2.setHealthText();
 
 
 
@@ -87,6 +110,12 @@ public class PlayerController : MonoBehaviour {
 			refScript2.count++;
 			refScript2.setCountText();
         }
+    }
+
+	void recieveDamage(int damage)
+    {
+		health = health - damage;
+		Debug.Log(health);
     }
 
 
