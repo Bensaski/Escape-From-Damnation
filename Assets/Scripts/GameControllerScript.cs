@@ -9,11 +9,13 @@ public class GameControllerScript : MonoBehaviour
 	public int numPickups = 2;
 
 	public Text winText;
-	public Text scoreText;
+	public Text enemyCountText;
 	public Text positionText;
 	public Text velocityText;
 	public Text lowestDistanceText;
 	public Text healthText;
+	public GameObject[] Enemies;
+	int enemyCount = 0;
 
 	float positionX;
 	float positionY;
@@ -42,7 +44,9 @@ public class GameControllerScript : MonoBehaviour
 
 		count = 0;
 		winText.text = "";
-		setCountText();
+
+
+
 	}
 
 	// Update is called once per frame
@@ -79,15 +83,29 @@ public class GameControllerScript : MonoBehaviour
 
 
 	}
-	public void setCountText()
-	{
-		scoreText.text = "Score: " + count.ToString();
 
-		if (count >= numPickups)
+	public void setEnemyCounter()
+    {
+		Enemies = GameObject.FindGameObjectsWithTag("Enemy");
+		enemyCount = 0;
+		foreach (GameObject j in Enemies)
 		{
-			winText.text = "You Win!";
+			if (j.activeInHierarchy)
+			{
 
+				enemyCount++;
+			}
 		}
+
+	}
+	public void setEnemyCountText()
+	{
+		enemyCountText.text = "Enemy Count : " + enemyCount.ToString();
+		if(enemyCount <= 0)
+        {
+			winText.text = "You Win!";
+        }
+
 	}
 	public void setPositionText()
 
@@ -166,4 +184,5 @@ public class GameControllerScript : MonoBehaviour
     {
 
     }
+
 }

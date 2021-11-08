@@ -31,7 +31,7 @@ public class Shoot : MonoBehaviour
             }
 
             GameObject bullet = Instantiate(projectile, player.transform.position, player.transform.rotation);
-            Physics.IgnoreCollision(bullet.GetComponent<Collider>(), GetComponent<Collider>());
+            Physics.IgnoreCollision(bullet.GetComponent<Collider>(), GetComponent<Collider>(),true);
             //bullet.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0, Velocity, 0));
             bullet.GetComponent<Rigidbody>().AddForce(player.transform.forward * Velocity);
             Destroy(bullet, 3f);

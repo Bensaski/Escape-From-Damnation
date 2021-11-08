@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Damage : MonoBehaviour
 {
+    public GameObject hit;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,8 +21,9 @@ public class Damage : MonoBehaviour
 
         if (other.CompareTag("Enemy"))
         {
-            Debug.Log("hi");
             Enemy Enemy = other.gameObject.GetComponent<Enemy>();
+            GameObject firework = Instantiate(hit, other.transform.position, Quaternion.identity);
+            firework.GetComponent<ParticleSystem>().Play();
 
             Enemy.gameObject.SendMessage("recieveDamage", 1);
             Destroy(gameObject);
