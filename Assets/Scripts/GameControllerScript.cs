@@ -103,7 +103,7 @@ public class GameControllerScript : MonoBehaviour
 		enemyCountText.text = "Enemy Count : " + enemyCount.ToString();
 		if(enemyCount <= 0)
         {
-			winText.text = "You Win!";
+			//winText.text = "You Win!";
         }
 
 	}

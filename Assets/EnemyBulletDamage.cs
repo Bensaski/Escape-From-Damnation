@@ -20,13 +20,11 @@ public class EnemyBulletDamage : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player1"))
         {
-            GameObject firework = Instantiate(hit, other.transform.position, other.transform.rotation);
-            firework.GetComponent<ParticleSystem>().Play();
             Enemy Enemy = other.gameObject.GetComponent<Enemy>();
 
-            Enemy.gameObject.SendMessage("recieveDamage", 1);
+            other.gameObject.SendMessage("recieveDamage", 1);
 
 
             Destroy(gameObject);

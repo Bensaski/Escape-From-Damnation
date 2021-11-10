@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
     public int health;
     Transform Player;
     GameObject Player1;
-    float Velocity = 30f;
+    public float Velocity = 30f;
     public int speed = 300;
     int Distance = 1;
     int waitingTime = 1;

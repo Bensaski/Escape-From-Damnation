@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class Shoot : MonoBehaviour
 {
+    public AudioClip shoot;
     public GameObject projectile;
     public GameObject player;
     public float Velocity = 1000f;
     GameObject Enemy;
-    
+
+
     void Start()
     {
 
@@ -19,6 +21,7 @@ public class Shoot : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            AudioSource.PlayClipAtPoint(shoot, player.transform.position, 0.5f);
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Plane plane = new Plane(Vector3.up, Vector3.zero);
             float distance;

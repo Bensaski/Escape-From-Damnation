@@ -9,13 +9,14 @@ public class PlayerController : MonoBehaviour {
 	public GameControllerScript refScript2;
 	public Camera mainCamera;
 	public int health = 10;
+	private Rigidbody rb;
 
 
 	void Start()
     {
 		GameControllerScript refScript2 = GetComponent<GameControllerScript>();
+		rb = GetComponent<Rigidbody>();
 
-		
 
 	}
     private void Update()
@@ -37,19 +38,24 @@ public class PlayerController : MonoBehaviour {
 
 		if (Input.GetKey("w"))
 		{
-			transform.Translate(Vector3.forward * Time.deltaTime * speed, Space.World);
+			//rb.MovePosition(Vector3.forward * Time.deltaTime * speed);
+			//transform.Translate(Vector3.forward * Time.deltaTime * speed, Space.World);
+			rb.AddRelativeForce(transform.InverseTransformDirection(Vector3.forward) * speed);
 		}
 		if (Input.GetKey("s"))
 		{
-			transform.Translate(-Vector3.forward * Time.deltaTime * speed, Space.World);
+			//transform.Translate(-Vector3.forward * Time.deltaTime * speed, Space.World);
+			rb.AddRelativeForce(transform.InverseTransformDirection (- Vector3.forward) * speed);
 		}
 		if (Input.GetKey("d"))
 		{
-			transform.Translate(Vector3.right * Time.deltaTime * speed, Space.World);
+			//transform.Translate(Vector3.right * Time.deltaTime * speed, Space.World);
+			rb.AddRelativeForce(transform.InverseTransformDirection(Vector3.right) * speed);
 		}
 		if (Input.GetKey("a"))
 		{
-			transform.Translate(-Vector3.right * Time.deltaTime * speed, Space.World);
+			//transform.Translate(-Vector3.right * Time.deltaTime * speed, Space.World);
+			rb.AddRelativeForce(transform.InverseTransformDirection (- Vector3.right) * speed);
 		}
 
 		if (Input.GetKeyDown("left shift") & Input.GetKey("w"))
@@ -81,6 +87,17 @@ public class PlayerController : MonoBehaviour {
     {
 		health = health - damage;
 		Debug.Log(health);
+		if(health <= 0)
+        {
+			refScript2.winText.text = "You Died!";
+			Invoke("QuitGame2", 2);
+
+        }
+    }
+
+	void QuitGame2()
+    {
+		Application.Quit();
     }
 
 

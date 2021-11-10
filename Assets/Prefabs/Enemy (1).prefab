@@ -140,5 +140,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 5
-  speed: 6
+  Velocity: 30
+  speed: 3
   projectile: {fileID: 57287722607954630, guid: ff031dbd4dd6e3245a95ff0da7b59927, type: 3}
