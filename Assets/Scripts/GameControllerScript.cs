@@ -180,9 +180,17 @@ public class GameControllerScript : MonoBehaviour
 		pickclosest.GetComponent<Renderer>().material.color = Color.blue;
 	}
 
-	void GameMode()
+    private void OnTriggerEnter(Collider other)
     {
+		if (other.gameObject.tag == "PickUp")
+		{
+			if (refScript.health < 10)
+			{
+				refScript.health += 1;
+				Destroy(other.gameObject);
+			}
+		}
 
-    }
+	}
 
 }
