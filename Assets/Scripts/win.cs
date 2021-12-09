@@ -29,6 +29,6 @@ public class win : MonoBehaviour
         }
     }
     void MainMenu() {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("LevelTwo");
     }
 }
