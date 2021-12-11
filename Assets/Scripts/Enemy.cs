@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     public int health;
@@ -15,6 +15,9 @@ public class Enemy : MonoBehaviour
     bool inRange = false;
     float timer;
     Rigidbody rb;
+    public Transform[] points;
+    private int destPoint = 0;
+    private NavMeshAgent agent;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +26,8 @@ public class Enemy : MonoBehaviour
         Player1 = GameObject.FindGameObjectWithTag("Player1");
         Player = GameObject.FindGameObjectWithTag("Player1").transform;
         rb = GetComponent<Rigidbody>();
-
+        agent = GetComponent<NavMeshAgent>();
+        nextDestination();
     }
 
     // Update is called once per frame
@@ -68,6 +72,17 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    void nextDestination()
+    {
+        if (points.Length == 0)
+        {
+            return;
+        }
+        agent.destination = points[destPoint].position;
+        destPoint = (destPoint + 1) % points.Length;
+
+    }
+
 
 
     private void ShootPlayer()
@@ -80,6 +95,12 @@ public class Enemy : MonoBehaviour
         timer = 0;
         Destroy(bullet, 3f);
 
+    }
+
+    private void Update()
+    {
+        if (!agent.pathPending && agent.remainingDistance < 0.5f)
+            nextDestination();
     }
 
 }
