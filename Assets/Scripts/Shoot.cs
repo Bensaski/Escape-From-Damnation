@@ -40,7 +40,7 @@ public class Shoot : MonoBehaviour
             }
             animator.SetBool("Shooting", true);
 
-            if (PlayerPrefs.GetInt("Shots") == 2)
+            if (PlayerPrefs.GetInt("Shots") == 2) //Decides how many bullets to shoot based on the PlayerPrefs 
             {
                 
                 GameObject bullet = Instantiate(projectile, new Vector3(BulletSpawner.transform.position.x - 0.5f, BulletSpawner.transform.position.y, BulletSpawner.transform.position.z), BulletSpawner.transform.rotation);

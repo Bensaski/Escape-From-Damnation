@@ -49,15 +49,13 @@ public class PlayerController : MonoBehaviour {
 		animator.SetFloat("Speed", horAxis);
 		if (Input.GetKey("w"))
 		{
-			//rb.MovePosition(Vector3.forward * Time.deltaTime * speed);
-			//transform.Translate(Vector3.forward * Time.deltaTime * speed, Space.World);
+
 			rb.AddRelativeForce(transform.InverseTransformDirection(Vector3.forward) * speed);
 			animator.SetFloat("Speed", 1);
 		}
 		if (Input.GetKeyUp("w"))
 		{
-			//rb.MovePosition(Vector3.forward * Time.deltaTime * speed);
-			//transform.Translate(Vector3.forward * Time.deltaTime * speed, Space.World);
+
 			animator.SetFloat("Speed", 0);
 		}
 		if (Input.GetKeyUp("a"))

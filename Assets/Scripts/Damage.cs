@@ -35,17 +35,6 @@ public class Damage : MonoBehaviour
         {
 
         }
-        if (other.CompareTag("TutorialEnemy"))
-        {
-            TutorialEnemy Enemy = other.gameObject.GetComponent<TutorialEnemy>();
-            GameObject explosion = Instantiate(hit, other.transform.position, Quaternion.identity);
-            AudioSource.PlayClipAtPoint(clip, other.transform.position, volume);
-            explosion.GetComponent<ParticleSystem>().Play();
-
-
-            Enemy.gameObject.SendMessage("recieveDamage", 1);
-            Destroy(gameObject);
-        }
         else
         {
             Destroy(gameObject);

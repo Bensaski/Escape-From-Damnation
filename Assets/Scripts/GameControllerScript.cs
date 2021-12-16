@@ -12,6 +12,7 @@ public class GameControllerScript : MonoBehaviour
 	public Text enemyCountText;
 	public Text positionText;
 	public Text velocityText;
+	public AudioClip pickup;
 	public Text lowestDistanceText;
 	public Text healthText;
 	public GameObject[] Enemies;
@@ -196,12 +197,16 @@ public class GameControllerScript : MonoBehaviour
 			if (refScript.health < 10)
 			{
 				refScript.health += 1;
+				AudioSource.PlayClipAtPoint(pickup,other.transform.position, 0.5f);
+
 				Destroy(other.gameObject);
 			}
 		}
 		if (other.gameObject.tag == "PowerUp")
 		{
 			PlayerPrefs.SetInt("Shots", 2);
+			AudioSource.PlayClipAtPoint(pickup, other.transform.position, 0.5f);
+			Destroy(other.gameObject);
 		}
 
 	}

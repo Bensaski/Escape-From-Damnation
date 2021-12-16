@@ -16,7 +16,7 @@ public class VolumeScript : MonoBehaviour
     {
         
     }
-
+    //I obtained how to do the below method from https://forum.unity.com/threads/how-to-change-a-audiolistener-volume-with-slider-ui.457530/
     public void ChangeVol(float newVolume)
     {
         Volume = AudioListener.volume;
