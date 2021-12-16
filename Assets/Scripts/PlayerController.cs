@@ -12,11 +12,13 @@ public class PlayerController : MonoBehaviour {
 	private Rigidbody rb;
 	public Animator animator;
 
+
 	void Start()
     {
 		GameControllerScript refScript2 = GetComponent<GameControllerScript>();
 		rb = GetComponent<Rigidbody>();
 		animator = GetComponent<Animator>();
+
 
 
 	}
@@ -26,10 +28,7 @@ public class PlayerController : MonoBehaviour {
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		Plane plane = new Plane(Vector3.up, Vector3.zero);
 		float distance;
-		float horAxis = Input.GetAxis("Horizontal");
-		float verAxis = Input.GetAxis("Vertical");
-		animator.SetFloat("Speed", verAxis);
-		animator.SetFloat("Speed", horAxis);
+
 		if (plane.Raycast(ray, out distance))
 		{
 			Vector3 target = ray.GetPoint(distance);
@@ -38,12 +37,16 @@ public class PlayerController : MonoBehaviour {
 			transform.rotation = Quaternion.Euler(0, rotation, 0);
 
 		}
+
 	}
 
     void FixedUpdate(){
 
-		
 
+		float horAxis = Input.GetAxis("Horizontal");
+		float verAxis = Input.GetAxis("Vertical");
+		animator.SetFloat("Speed", verAxis);
+		animator.SetFloat("Speed", horAxis);
 		if (Input.GetKey("w"))
 		{
 			//rb.MovePosition(Vector3.forward * Time.deltaTime * speed);
@@ -64,7 +67,7 @@ public class PlayerController : MonoBehaviour {
 			animator.SetFloat("Speed", 0);
 		}
 		if (Input.GetKeyUp("s"))
-		{
+		{ 
 			//rb.MovePosition(Vector3.forward * Time.deltaTime * speed);
 			//transform.Translate(Vector3.forward * Time.deltaTime * speed, Space.World);
 			animator.SetFloat("Speed", 0);
@@ -124,7 +127,7 @@ public class PlayerController : MonoBehaviour {
     void recieveDamage(int damage)
     {
 		health = health - damage;
-		Debug.Log(health);
+
 		if(health <= 0)
         {
 			refScript2.winText.text = "You Died!";
@@ -137,6 +140,7 @@ public class PlayerController : MonoBehaviour {
     {
 		Application.Quit();
     }
+
 
 
 

@@ -7,10 +7,11 @@ public class Enemy : MonoBehaviour
     public int health;
     Transform Player;
     GameObject Player1;
+    GameObject PlayerTarget;
     public float Velocity = 30f;
     public int speed = 300;
     int Distance = 10;
-    int waitingTime = 2;
+    public int waitingTime = 2;
     public GameObject projectile;
     bool inRange = false;
     float timer;
@@ -18,6 +19,7 @@ public class Enemy : MonoBehaviour
     public Transform[] points;
     private int destPoint = 0;
     private NavMeshAgent agent;
+    public GameObject bulletSpawner;
 
     // Start is called before the first frame update
     void Start()
@@ -25,9 +27,20 @@ public class Enemy : MonoBehaviour
 
         Player1 = GameObject.FindGameObjectWithTag("Player1");
         Player = GameObject.FindGameObjectWithTag("Player1").transform;
+        PlayerTarget = GameObject.FindGameObjectWithTag("Player");
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         nextDestination();
+
+
+        if (PlayerPrefs.GetInt("difficulty") == 1) //easy 
+        {
+            health = 15;
+        }
+        if (PlayerPrefs.GetInt("difficulty") == 2) //hard
+        {
+            health = 30;
+        }
     }
 
     // Update is called once per frame
@@ -39,22 +52,21 @@ public class Enemy : MonoBehaviour
             inRange = true;
         }
         if (inRange) {
+            agent.SetDestination(Player.transform.position);
             transform.LookAt(Player);
 
-            if (Vector3.Distance(transform.position, Player.position) >= 3)
-            {
-                rb.AddForce(transform.forward * speed);
-               //transform.position += transform.forward * speed * Time.deltaTime;
-            }
-            if (Vector3.Distance(transform.position, Player.position) < 3)
-            {
-                rb.velocity = Vector3.zero;
-                rb.angularVelocity = Vector3.zero;
-                //transform.position += transform.forward * speed * Time.deltaTime;
-            }
             if (timer > waitingTime)
             {
                 ShootPlayer();
+            }
+            if(agent.remainingDistance < 3f)
+            {
+                agent.isStopped = true;
+             
+            }
+            else
+            {
+                agent.isStopped = false;
             }
         }
     }
@@ -87,10 +99,10 @@ public class Enemy : MonoBehaviour
 
     private void ShootPlayer()
     {
-        GameObject bullet = Instantiate(projectile, transform.position, transform.rotation);
+        GameObject bullet = Instantiate(projectile, bulletSpawner.transform.position, transform.rotation);
         Physics.IgnoreCollision(bullet.GetComponent<Collider>(), GetComponent<Collider>(), true);
         //bullet.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0, Velocity, 0));
-        bullet.GetComponent<Rigidbody>().velocity = (Player1.transform.position - bullet.transform.position).normalized * Velocity;
+        bullet.GetComponent<Rigidbody>().velocity = (PlayerTarget.transform.position - bullet.transform.position).normalized * Velocity;
         //bullet.GetComponent<Rigidbody>().AddForce(transform.forward * Velocity);
         timer = 0;
         Destroy(bullet, 3f);

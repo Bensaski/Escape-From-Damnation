@@ -16,6 +16,7 @@ public class GameControllerScript : MonoBehaviour
 	public Text healthText;
 	public GameObject[] Enemies;
 	int enemyCount = 0;
+	public static bool pauseGame;
 
 	float positionX;
 	float positionY;
@@ -33,6 +34,7 @@ public class GameControllerScript : MonoBehaviour
 
 	private LineRenderer lineRenderer;
 	public float gameModeNumber;
+	public GameObject PauseMenu;
 
 
 	void Start()
@@ -44,6 +46,7 @@ public class GameControllerScript : MonoBehaviour
 
 		count = 0;
 		winText.text = "";
+		PauseMenu.SetActive(false);
 
 
 
@@ -52,6 +55,12 @@ public class GameControllerScript : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		if (Input.GetKeyDown("escape"))
+		{
+			pauseGame = !pauseGame;
+			PauseGame();
+		}
+
 		if (Input.GetKeyDown("space"))
 		{
 			if (gameModeNumber == 0)
@@ -190,7 +199,25 @@ public class GameControllerScript : MonoBehaviour
 				Destroy(other.gameObject);
 			}
 		}
+		if (other.gameObject.tag == "PowerUp")
+		{
+			PlayerPrefs.SetInt("Shots", 2);
+		}
 
+	}
+
+	void PauseGame()
+	{
+		if (pauseGame == true)
+		{
+			Time.timeScale = 0f;
+			PauseMenu.SetActive(true);
+		}
+		else
+		{
+			Time.timeScale = 1;
+			PauseMenu.SetActive(false);
+		}
 	}
 
 }

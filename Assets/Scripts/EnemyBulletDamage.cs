@@ -24,6 +24,7 @@ public class EnemyBulletDamage : MonoBehaviour
         {
 
             other.gameObject.SendMessage("recieveDamage", 1);
+            Debug.Log("Hit");
 
 
             Destroy(gameObject);

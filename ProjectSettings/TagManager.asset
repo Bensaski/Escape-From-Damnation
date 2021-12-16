@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - Player1
   - Destination
+  - PowerUp
+  - TutorialEnemy
   layers:
   - Default
   - TransparentFX
